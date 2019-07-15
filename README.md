@@ -3,6 +3,7 @@
 ## Project setup
 ```
 yarn install
+go get github.com/gorilla/mux
 ```
 
 ### Compiles and hot-reloads for development
