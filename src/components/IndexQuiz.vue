@@ -1,16 +1,22 @@
 <template>
-  <div class="">
-    <h1>{{ msg }}</h1>
+  <div class="container">
+    <h1 class="bg bg-info text-white text-center">{{ title }}</h1>
+    <QuestionsList />
   </div>
 </template>
 
 <script>
+import QuestionsList from './QuestionsList.vue';
+
 export default {
   name: 'IndexQuiz',
+  components: {
+    QuestionsList
+  },
   props: {
-    msg: String
+    title: String
   }
-}
+};
 </script>
 
 <style scoped>
