@@ -4,6 +4,10 @@
 ```
 yarn install
 go get github.com/gorilla/mux
+go get github.com/jinzhu/gorm
+sudo -u postgres psql postgres
+CREATE ROLE quiz WITH SUPERUSER CREATEDB CREATEROLE LOGIN ENCRYPTED PASSWORD 'quiz';
+create database "quiz";
 ```
 
 ### Compiles and hot-reloads for development

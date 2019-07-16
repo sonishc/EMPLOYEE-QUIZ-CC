@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"../models"
+	"../db"
 	"../utils"
 	"encoding/json"
 	"net/http"
@@ -9,5 +9,5 @@ import (
 
 func GetQuestions(w http.ResponseWriter, r *http.Request) {
 	utils.SetHeaders(w)
-	json.NewEncoder(w).Encode(models.Questions)
+	json.NewEncoder(w).Encode(db.GetQuestions())
 }
