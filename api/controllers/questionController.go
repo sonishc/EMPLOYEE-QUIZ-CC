@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"../db"
 	"../models"
 	"../utils"
 	"encoding/json"
@@ -11,13 +10,13 @@ import (
 
 func GetQuestions(w http.ResponseWriter, r *http.Request) {
 	utils.SetHeaders(w)
-	json.NewEncoder(w).Encode(db.GetQuestions())
+	json.NewEncoder(w).Encode(models.GetQuestions())
 }
 
 func GetQuestion(w http.ResponseWriter, r *http.Request) {
 	utils.SetHeaders(w)
 	params := mux.Vars(r)
-	json.NewEncoder(w).Encode(db.GetQuestion(params["id"]))
+	json.NewEncoder(w).Encode(models.GetQuestion(params["id"]))
 }
 
 func CreateQuestion(w http.ResponseWriter, r *http.Request) {
@@ -26,7 +25,7 @@ func CreateQuestion(w http.ResponseWriter, r *http.Request) {
 	_ = json.NewDecoder(r.Body).Decode(&question)
 	message, status := question.Validate()
 	if status {
-		db.CreateQuestion(&question)
+		models.CreateQuestion(&question)
 	}
 	json.NewEncoder(w).Encode(message)
 }
@@ -34,11 +33,11 @@ func CreateQuestion(w http.ResponseWriter, r *http.Request) {
 func UpdateQuestion(w http.ResponseWriter, r *http.Request) {
 	utils.SetHeaders(w)
 	params := mux.Vars(r)
-	question := db.GetQuestion(params["id"])
+	question := models.GetQuestion(params["id"])
 	_ = json.NewDecoder(r.Body).Decode(&question)
 	message, status := question.Validate()
 	if status {
-		db.UpdateQuestion(question)
+		models.UpdateQuestion(question)
 	}
 	json.NewEncoder(w).Encode(message)
 }
@@ -46,7 +45,7 @@ func UpdateQuestion(w http.ResponseWriter, r *http.Request) {
 func DeleteQuestion(w http.ResponseWriter, r *http.Request) {
 	utils.SetHeaders(w)
 	params := mux.Vars(r)
-	question := db.GetQuestion(params["id"])
-	db.DeleteQuestion(question)
+	question := models.GetQuestion(params["id"])
+	models.DeleteQuestion(question)
 	json.NewEncoder(w).Encode("success")
 }
