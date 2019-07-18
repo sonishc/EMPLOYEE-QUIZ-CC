@@ -5,22 +5,6 @@ import (
 	"fmt"
 )
 
-func SeedQuestions() {
-	questions := make([]*models.Question, 0)
-
-	GetDB().Create(&models.Question{Text: "5+6", Answer: "11"})
-	GetDB().Create(&models.Question{Text: "2+7", Answer: "9"})
-	GetDB().Create(&models.Question{Text: "1+6", Answer: "7"})
-	GetDB().Create(&models.Question{Text: "7+9", Answer: "16"})
-	GetDB().Create(&models.Question{Text: "3+5", Answer: "8"})
-
-
-	GetDB().Find(&questions)
-	for _,value := range questions {
-		fmt.Println(*value)
-	}
-}
-
 func GetQuestions() []*models.Question {
 	questions := make([]*models.Question, 0)
 	err := GetDB().Find(&questions).Error
@@ -29,4 +13,26 @@ func GetQuestions() []*models.Question {
 		return nil
 	}
 	return questions
+}
+
+func GetQuestion(id string) *models.Question {
+	question := &models.Question{}
+	err := GetDB().Where("ID = ?", id).First(question).Error
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	return question
+}
+
+func CreateQuestion(question *models.Question) {
+	GetDB().Create(question)
+}
+
+func UpdateQuestion(question *models.Question) {
+	GetDB().Save(question)
+}
+
+func DeleteQuestion(question *models.Question) {
+	GetDB().Delete(question)
 }
