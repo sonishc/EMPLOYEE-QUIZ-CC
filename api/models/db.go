@@ -1,7 +1,6 @@
-package db
+package models
 
 import (
-	"../models"
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
@@ -17,8 +16,10 @@ func init() {
 	}
 
 	db = connection
-	db.AutoMigrate(&models.Question{})
-	//SeedQuestions()
+	db.AutoMigrate(
+		&Question{},
+		&Quiz{},
+	)
 }
 
 func GetDB() *gorm.DB {
